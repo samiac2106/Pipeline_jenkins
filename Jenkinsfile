@@ -24,7 +24,7 @@ pipeline {
         stage('Detener contenedor existente'){
             steps{
                 script {
-                    catchError(build:'SUCCESS', stageResult:'UNSTABLE') {
+                    catchError(buildResult:'SUCCESS', stageResult:'UNSTABLE') {
                     bat """ 
                     docker container inspect docker container stop dockerapidivisionpolitica >nul 2>&1 &&(
                     docker container stop dockerapidivisionpolitica 
