@@ -21,6 +21,19 @@ pipeline {
                 }
             }
         }
+        stage('Detener contenedor existente'){
+            steps{
+                script {
+                    catchError(build:'SUCCESS', stageResult:'UNSTABLE') {
+                    bat """ 
+                    docker container inspect docker container stop dockerapidivisionpolitica >nul 2>&1 &&(
+                    docker container stop dockerapidivisionpolitica 
+                    docker container rm dockerapidivisionpolitica
+                    ) || echo "no existe el contenedor 'dockerapidivisionpolitica'"  
+                    """
+                     }
+            }
+        } 
 
         stage('crear contenedor'){
             steps{
